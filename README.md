@@ -44,18 +44,22 @@ Install the required packages with:
 
 ```bash
 brew install python3 pipx libusb sqlite3
+```
 
 For Android device support (if needed):
 ```bash
 brew install --cask android-platform-tools
+```
 
 Next, ensure you have pipx installed and properly set up:
 ```bash
 pipx ensurepath
+```
 
 Then install the Mobile Verification Toolkit:
 ```bash
 pipx install mvt
+```
 
 This installs the mvt-ios and mvt-android utilities.
 
@@ -63,27 +67,28 @@ This installs the mvt-ios and mvt-android utilities.
 Clone or download this repository, then build the tool using Go:
 ```bash
 go build backup_ios.go
+```
 This will create the backup_ios executable.
 
 
 ### Usage
-	1.	Connect and Trust Your Device:
-Make sure your iOS device is connected and trusted by your computer.
-	2.	Run the Tool:
-Execute the command:
+1. Connect and Trust Your Device: Make sure your iOS device is connected and trusted by your computer.
+2. Run the Tool: Execute the command:
+
 ```bash
 ./backup_ios
+```
 
+3. Follow the Prompts:
+* Select the external drive where the backup will be stored.
+* If encryption is already enabled, provide the existing backup password when prompted.
+* The tool will then:
+  * Create a timestamped backup directory.
+  * Enable encryption on your device.
+  * Perform a realtime backup using idevicebackup2.
+  * Disable encryption (unlock the phone) once the backup is complete.
+  * Decrypt the backup using mvt-ios.
+  * Update the IOC list and run a forensic scan on the decrypted backup.
 
-3.	Follow the Prompts:
-	•	Select the external drive where the backup will be stored.
-	•	If encryption is already enabled, provide the existing backup password when prompted.
-	•	The tool will then:
-	•	Create a timestamped backup directory.
-	•	Enable encryption on your device.
-	•	Perform a realtime backup using idevicebackup2.
-	•	Disable encryption (unlock the phone) once the backup is complete.
-	•	Decrypt the backup using mvt-ios.
-	•	Update the IOC list and run a forensic scan on the decrypted backup.
-	4.	Review Results:
+4. Review Results:
 The tool logs its progress and results, and outputs diagnostic messages throughout the process.
