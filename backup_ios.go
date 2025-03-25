@@ -1,4 +1,3 @@
-// This script works, but backup output is not shown.
 package main
 
 import (
@@ -81,23 +80,13 @@ func logAction(logFile, message string) {
 	}
 }
 
-// runCommand logs and then executes a system command.
+// runCommand logs and then executes a system command with realtime output.
 func runCommand(logFile, name string, args ...string) error {
 	logAction(logFile, fmt.Sprintf("Executing: %s %s", name, strings.Join(args, " ")))
 	cmd := exec.Command(name, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
-}
-
-// runCommandWithOutput runs a command and returns its combined output.
-func runCommandWithOutput(logFile, name string, args ...string) (string, error) {
-	logAction(logFile, fmt.Sprintf("Executing: %s %s", name, strings.Join(args, " ")))
-	cmd := exec.Command(name, args...)
-	output, err := cmd.CombinedOutput()
-	outStr := string(output)
-	fmt.Print(outStr)
-	return outStr, err
 }
 
 // checkDependencies verifies that required external programs are installed.
@@ -167,15 +156,12 @@ func handleEncryption(logFile string) (string, error) {
 	return password, nil
 }
 
-// backupDevice executes the backup using idevicebackup2.
-// A delay is added before starting the backup, and we capture the full output.
+// backupDevice executes the backup using idevicebackup2 and shows output in realtime.
 func backupDevice(logFile, backupDir, password string) error {
 	// Allow the device to settle after encryption is enabled.
-	time.Sleep(2 * time.Second)
+	time.Sleep(5 * time.Second)
 	start := time.Now()
-	fmt.Printf("Starting Backup of device...")
-	_, err := runCommandWithOutput(logFile, "idevicebackup2", "backup", backupDir, "--password", password)
-	if err != nil {
+	if err := runCommand(logFile, "idevicebackup2", "backup", backupDir, "--password", password); err != nil {
 		return err
 	}
 	duration := time.Since(start)
