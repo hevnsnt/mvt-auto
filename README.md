@@ -1,6 +1,12 @@
 # backup_ios
 
-**backup_ios** automates the forensic backup and analysis process for iOS devices using the [Mobile Verification Toolkit (MVT)](https://github.com/mvt-project/mvt). This tool streamlines the workflow for forensic investigators by automating encrypted backups, decryption, and subsequent IOC-based analysis, all in one go.
+**backup_ios** automates the forensic backup and analysis process for iOS devices using the [Mobile Verification Toolkit (MVT)](https://github.com/mvt-project/mvt). This tool streamlines the workflow for forensic investigators by automating encrypted backups, decryption, and subsequent IOC-based analysis, all in one go. This tool provides a streamlined, automated workflow for forensic examination of iOS devices using idevicebackup2 and MVT (Mobile Verification Toolkit). It performs the following steps:
+1.	**Drive Selection & Backup Directory Creation:** Prompts you to select an external drive and automatically creates a timestamped folder for the backup.
+2.	**Encryption Handling:** If your iOS device is not already set to encrypt backups, the tool enables encryption and generates a secure password. After the backup finishes, it disables encryption again, effectively “unlocking” the device. If anything goes wrong in the backup, the phone will be unlocked with the password. The password is also saved in a text file and in the logs. 
+3.	**Real-Time Backup:** Uses idevicebackup2 to create a live, real-time backup of the device.
+4.	**Backup Decryption & Analysis:** Decrypts the backup using mvt-ios and then automatically updates the Indicators of Compromise (IOCs) list before scanning the decrypted backup for potential spyware or malicious indicators.
+5.	**Logging & Reporting:** Logs are kept in a dedicated file alongside the backup directory, providing a record of all actions taken.
+
 
 ## Overview
 
@@ -80,7 +86,7 @@ This will create the backup_ios executable.
 ```
 
 3. Follow the Prompts:
-* Select the external drive where the backup will be stored.
+* Select the external drive where both the encrypted and decrypted backups will be stored.
 * If encryption is already enabled, provide the existing backup password when prompted.
 * The tool will then:
   * Create a timestamped backup directory.
