@@ -13,5 +13,16 @@ It has been developed and released by the [Amnesty International Security Lab](h
 MVT supports using public [indicators of compromise (IOCs)](https://github.com/mvt-project/mvt-indicators) to scan mobile devices for potential traces of targeting or infection by known spyware campaigns. This includes IOCs published by [Amnesty International](https://github.com/AmnestyTech/investigations/) and other  research groups.
 
 
-## Compile it
-go build backup_ios.go
+## Installation
+Expectation to be run on a modern Apple Silicon, untested on any other platform
+> brew install python3 pipx libusb sqlite3
+(ibusb is not required if you intend to only use mvt-ios and not mvt-android.)
+When working with Android devices you should additionally install Android SDK Platform Tools:
+
+> brew install --cask android-platform-tools
+
+Install pipx following the instructions above for your OS/distribution. Make sure to run pipx ensurepath and open a new terminal window.
+> bash pipx install mvt
+
+You now should have the mvt-ios and mvt-android utilities installed. If you run into problems with these commands not being found, ensure you have run pipx ensurepath and opened a new terminal window.
+> go build backup_ios.go
