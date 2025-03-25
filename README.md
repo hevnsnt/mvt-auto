@@ -11,3 +11,7 @@ It has been developed and released by the [Amnesty International Security Lab](h
 ### Indicators of Compromise
 
 MVT supports using public [indicators of compromise (IOCs)](https://github.com/mvt-project/mvt-indicators) to scan mobile devices for potential traces of targeting or infection by known spyware campaigns. This includes IOCs published by [Amnesty International](https://github.com/AmnestyTech/investigations/) and other  research groups.
+
+
+## Compile it
+go build backup_ios.go
