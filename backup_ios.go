@@ -265,8 +265,9 @@ func mainRun() error {
 
 	// Search the decrypted backup.
 	decryptedDir := filepath.Join(backupDir, "decrypted")
+	outputDir := filepath.Join(backupDir, "json")
 	fmt.Println("Searching decrypted backup...")
-	if err := runCommand(logFile, "mvt-ios", "check-backup", decryptedDir); err != nil {
+	if err := runCommand(logFile, "mvt-ios", "check-backup", decryptedDir, "--output", outputDir); err != nil {
 		return fmt.Errorf("failed to search decrypted backup: %w", err)
 	}
 	fmt.Println("Backup search completed.")
